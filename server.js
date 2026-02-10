@@ -33,6 +33,19 @@ app.post("/submit", (req, res) => {
   });
 });
 
+app.get("/responses", (req, res) => {
+  const sql = "SELECT * FROM responses ORDER BY id DESC";
+
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Database error" });
+    }
+
+    res.json(results);
+  });
+});
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
